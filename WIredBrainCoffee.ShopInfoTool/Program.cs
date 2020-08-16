@@ -1,4 +1,5 @@
 ﻿using System;
+using WiredBrainCoffee.DataAccess.Model;
 
 namespace WIredBrainCoffee.ShopInfoTool
 {
@@ -7,6 +8,29 @@ namespace WIredBrainCoffee.ShopInfoTool
         static void Main(string[] args)
         {
             Console.WriteLine("Wired Brain Coffee - Shop Info Tool!");
+
+            Console.WriteLine("Write 'help' to list available commands");
+
+            var coffeeDataShopDataProvider = new CoffeeShopDataProvider();
+
+            while(true)
+            {
+                var line = Console.ReadLine();
+
+                var coffeeShops = coffeeDataShopDataProvider.LoadCoffeeShops();
+
+                if(String.Equals("help",line,StringComparison.OrdinalIgnoreCase))
+                {                       
+                    Console.WriteLine("> Available coffee shop commands:");
+
+                    foreach(var coffeeShop in coffeeShops)
+                    {
+                        Console.WriteLine($"> " + coffeeShop.Location);
+                    }
+
+                }
+            }
+
         }
     }
 }
